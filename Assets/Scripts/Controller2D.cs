@@ -48,6 +48,15 @@ public class Controller2D : MonoBehaviour
             grounded = false;
             rb.AddForce(new Vector2(0f, 1000f));
         }
+        if (dash)
+        {
+            int direction = -1;
+            if (facingRight)
+            {
+                direction = 1;
+            } 
+            rb.AddForce(new Vector2(20f * direction, 0f), ForceMode2D.Impulse);
+        }
     }
 
     private void Flip()

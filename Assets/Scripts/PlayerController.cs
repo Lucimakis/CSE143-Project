@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 velocity;
     private bool jump;
     private bool crouch;
+    private bool dash;
 
     public void Awake()
     {
@@ -19,7 +20,8 @@ public class PlayerController : MonoBehaviour
     {
         velocity = new Vector2(Input.GetAxis("Horizontal") + speed * Time.deltaTime, 0);
         jump = Input.GetKey("up");
+        dash = Input.GetKey(KeyCode.LeftShift);
         crouch = Input.GetKey("down");
-        controller.Move(velocity, crouch, false, jump);
+        controller.Move(velocity, crouch, dash, jump);
     }
 }

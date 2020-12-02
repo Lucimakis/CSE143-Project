@@ -1,62 +1,94 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Controller2D : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private bool grounded;
-    private bool facingRight;
     private BoxCollider2D boxCollider;
-    private float crouchSpeed;
+    private float jumpForce = 125.0f;
+    private float dashForce = 2f;
+    private float crouchSpeed = 0.5f;
+    private bool facingRight = true;
+    private bool grounded;
     private Vector3 m_velocity = Vector3.zero;
 
-    // Start is called before the first frame update
+    public UnityEvent LandEvent;
+
     public void Awake()
     {
-        grounded = false;
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        facingRight = true;
     }
+
     void FixedUpdate()
     {
-        Collider2D[] collisions = Physics2D.OverlapBoxAll(transform.position, boxCollider.size, 0);
-        for (int i = 0; i < collisions.Length; i++)
+        bool fromAir = grounded;
+        grounded = false;
+        Collider2D[] collisions = Physics2D.OverlapBoxAll(transform.position, boxCollider.size, 0); 
+        foreach (Collider2D collision in collisions)
         {
-            if (collisions[i] != boxCollider)
+            if (collision != boxCollider)
             {
                 grounded = true;
+                if (fromAir)
+                {
+                    LandEvent.Invoke();
+                }
             }
         }
     }
 
-    public void Move(Vector2 velocity, bool crouch, bool dash, bool jump) 
+    public void Move(float xVelocity, bool crouch, bool jump, bool roll)
     {
-        if (crouch)
+        if (roll)
         {
-            velocity = velocity / 2;
+            Roll();
         }
-        Vector3 target = new Vector2(velocity.x * 10f, rb.velocity.y);
-        rb.velocity = Vector3.SmoothDamp(rb.velocity, target, ref m_velocity, 0f);
-        if ((velocity.x > 0 && !facingRight) || (velocity.x < 0 && facingRight)) 
+        if (grounded)
         {
-            Flip();
-        }
-        if (grounded && jump)
-        {
-            grounded = false;
-            rb.AddForce(new Vector2(0f, 1000f));
-        }
-        if (dash)
-        {
-            int direction = -1;
-            if (facingRight)
+            if (crouch)
             {
-                direction = 1;
-            } 
-            rb.AddForce(new Vector2(20f * direction, 0f), ForceMode2D.Impulse);
+                xVelocity *= crouchSpeed;
+            }
+            Vector3 target = new Vector2(xVelocity, rb.velocity.y);
+            rb.velocity = Vector3.SmoothDamp(rb.velocity, target, ref m_velocity, 0f);
+            if ((xVelocity > 0 && !facingRight) || (xVelocity < 0 && facingRight))
+            {
+                Flip();
+            }
+            if (jump)
+            {
+                Jump();
+            }
         }
+        else if (crouch)
+        {
+            Crash();
+        }
+    }
+
+    private void Jump()
+    {
+        grounded = false;
+        rb.AddForce(new Vector2(0f, jumpForce));
+    }
+
+    private void Roll()
+    {
+        /*int direction = -1;
+        if (facingRight)
+        {
+            direction = 1;
+        }
+        rb.AddForce(new Vector2(dashForce * direction, 0f), ForceMode2D.Impulse);*/
+
+    }
+
+    private void Crash()
+    {
+        rb.AddForce(new Vector2(0f, int.MinValue));
     }
 
     private void Flip()

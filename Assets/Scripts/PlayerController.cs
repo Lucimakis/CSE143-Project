@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject playerPrefab;
+    private int health;
+    private int damageTaken;
+    public float damagedTime = 0.3f;
     public float speed = 250.0f;
+    public CapsuleCollider2D hitBox;
     private Controller2D controller;
     private Animator animator;
     private SpriteRenderer renderer;
@@ -12,47 +17,31 @@ public class PlayerController : MonoBehaviour
     private bool jump = false;
     private bool crouch = false;
     private bool roll = false;
-
-    public AnimationEvent ae;
+    private Vector3 spawn;
+    private bool controlLoss;
 
     public void Awake()
     {
         controller = GetComponent<Controller2D>();
+        renderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+
+    public void Start()
+    {
+        health = 100;
+        damageTaken = 40;
+        spawn = new Vector2(0f, 5f);
+        if (gameObject == null)
+        {
+            Instantiate(gameObject, spawn, transform.rotation);
+        }
     }
 
     void Update()
     {
         xVelocity = Input.GetAxisRaw("Horizontal") * speed;
         animator.SetFloat("Speed", Mathf.Abs(xVelocity));
-
-        /*if (Input.GetKeyDown("down"))
-        {
-            crouch = true;
-            animator.SetBool("Crouch", true);
-        } else if (Input.GetKeyUp("down"))
-        {
-            crouch = false;
-            animator.SetBool("Crouch", false);
-        }
-        if (Input.GetKeyDown("up"))
-        {
-            jump = true;
-            animator.SetBool("Jump", true);
-        } else if (Input.GetKeyUp("up"))
-        {
-            jump = false;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            roll = true;
-            animator.SetBool("Roll", true);
-        } else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            roll = false;
-            animator.SetBool("Roll", false);
-        }*/
-
         if (Input.GetKeyDown("up"))
         {
             jump = true;
@@ -64,15 +53,10 @@ public class PlayerController : MonoBehaviour
         }
         crouch = Input.GetKey("down");
         animator.SetBool("Crouch", crouch);
-
-        /*roll = Input.GetKey(KeyCode.LeftShift);
-        animator.SetBool("Roll", roll);*/
-
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             roll = true;
             animator.SetBool("Roll", true);
-            ae.functionName = "rollFinish";
         }
     }
 
@@ -89,6 +73,39 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        controller.Move(xVelocity * Time.deltaTime, crouch, jump, roll);
+        if (!controlLoss)
+        {
+            controller.Move(xVelocity * Time.deltaTime, crouch, jump, roll);
+        }
     }
+
+    void OnTriggerEnter2D(Collider2D hitObject)
+    {
+        Enemy enemy = hitObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            controlLoss = true;
+            health -= damageTaken;
+            if (health <= 0)
+            {
+                Respawn();
+            }
+            StartCoroutine(switchColor(Color.red));
+            controller.bounceBack(hitObject.transform);
+        }
+    }
+
+    IEnumerator switchColor(Color color)
+    {
+        renderer.color = color;
+        yield return new WaitForSeconds(damagedTime);
+        renderer.color = Color.white;
+        controlLoss = false;
+    }
+
+    void Respawn()
+    {
+        Instantiate(playerPrefab, spawn, Quaternion.identity);
+        Destroy(gameObject);
+    } 
 }

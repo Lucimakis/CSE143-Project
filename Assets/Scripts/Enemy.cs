@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public GameObject death;
-    private SpriteRenderer sr;
-    private int health = 100;
-    public float damagedTime = 0.2f;
-    public float deathAnim = 1.0f;
+    public GameObject death; // Enemy death object
+    private SpriteRenderer sr; // Sprite model manager
+    private int health; // Amount of health points
+    private float damagedTime; // The time the enemy shows damage for
+    private float deathAnim; // Length of time the body stays on the screen
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        health = 100;
+        damagedTime = 0.2f;
+        deathAnim = 1.0f;
+    }
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
     }
+
+    // Damages the object by the given amount
     public void Damage(int amount)
     {
         health -= amount;
         if (health <= 0)
         {
-            Die();
+            Die(); 
         }
-        StartCoroutine(switchColor());
+        StartCoroutine(switchColor()); // Flashes color to red when damaged
     }
 
-    // Update is called once per frame
+    // Destroys the object and shows the body
     void Die()
     {
         Destroy(gameObject);
@@ -34,6 +41,7 @@ public class Enemy : MonoBehaviour
         Destroy(body, deathAnim);
     }
 
+    // Switches the color for a number of seconds
     IEnumerator switchColor()
     {
         sr.color = Color.red;

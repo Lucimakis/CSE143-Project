@@ -1010,6 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  rType: 2
 --- !u!61 &-5179703113571700126
 BoxCollider2D:
   m_ObjectHideFlags: 0

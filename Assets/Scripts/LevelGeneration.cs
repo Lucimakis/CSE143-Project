@@ -6,7 +6,7 @@ public class LevelGeneration : MonoBehaviour
 {
     public Transform[] startingPositions;
 
-    public GameObject enemy;
+    public GameObject[] enemies;
     public GameObject player;
 
     // index 0 ==> LR
@@ -69,7 +69,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void Move()
     {
-        Instantiate(enemy, transform.position, Quaternion.identity); // Create an enemy
+        Instantiate(enemies[Random.Range(0, 30)], transform.position, Quaternion.identity); // Create an enemy
         // Move right
         if (direction == 1 || direction == 2)
         {

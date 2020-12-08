@@ -5,16 +5,14 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
     public Transform[] startingPositions;
+
+    public GameObject enemy;
+    public GameObject player;
+
     // index 0 ==> LR
     // index 1 ==> LRB
     // index 2 ==> LRT
     // index 3 ==> LRBT
-<<<<<<< HEAD
-    public GameObject[] rooms;
-
-    public GameObject enemy;
-    public GameObject player;
-=======
     // This array will be overriden in Start()
     public GameObject[] rooms;
 
@@ -22,7 +20,6 @@ public class LevelGeneration : MonoBehaviour
     public GameObject LeftRightBottomRoom;
     public GameObject LeftRightTopRoom;
     public GameObject LeftRightBottomTopRoom;
->>>>>>> 3fdc62d9b5d96de1afc0391b7d4e577435fe4820
 
     // Direction to move after initial room
     private int direction;
@@ -155,13 +152,10 @@ public class LevelGeneration : MonoBehaviour
                     {
                         roomAbove.RoomDestruction();
 
-<<<<<<< HEAD
                         // Once again, inefficient and strange weighting
-=======
                         // Once again, ineffcient and strange weighting
                         // Rooms at indexes 1 & 3 have bottom openings.
                         // LeftRightBottom & LeftRightTopBottom
->>>>>>> 3fdc62d9b5d96de1afc0391b7d4e577435fe4820
                         int randBottomOpening = Random.Range(1, 4);
                         if (randBottomOpening == 2)
                         {

@@ -609,6 +609,8 @@ MonoBehaviour:
   - {fileID: 86459534}
   - {fileID: 1331975067}
   - {fileID: 2068031833}
+  enemy: {fileID: 5559019996566795987, guid: 53fb8932a675e844196bb4106bf4ee34, type: 3}
+  player: {fileID: 104850128727708646, guid: cbd8ae081bc18d84eb296bb9fe831558, type: 3}
   rooms:
   - {fileID: 3090480248943973285, guid: 6547d80311ff7964782eace1a7ad92dc, type: 3}
   - {fileID: 4397209188753637250, guid: 514300774fb4a4748a77a477ef838a00, type: 3}
@@ -622,8 +624,6 @@ MonoBehaviour:
     type: 3}
   LeftRightBottomTopRoom: {fileID: 9016139589184101944, guid: 846404d9df42c8b4584f1fd83935b870,
     type: 3}
-  enemy: {fileID: 0}
-  player: {fileID: 0}
   moveAmount: 10
   stopGeneration: 0
   minX: -15
@@ -1575,6 +1575,18 @@ Transform:
   m_Father: {fileID: 827454434}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1805677837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805677833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb034e1e82aa9b46b6655aaaeb69ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1825692521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,18 +1759,6 @@ SpriteShapeRenderer:
   m_LocalAABB:
     m_Center: {x: 0, y: -0.00000023841858, z: 0}
     m_Extent: {x: 2.0000002, y: 2, z: 0}
---- !u!114 &1805677837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805677833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb034e1e82aa9b46b6655aaaeb69ec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2068031832
 GameObject:
   m_ObjectHideFlags: 0

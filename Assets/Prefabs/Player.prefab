@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 104850128611341913}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,11 +45,10 @@ GameObject:
   - component: {fileID: 104850128727708645}
   - component: {fileID: 104850128727708644}
   - component: {fileID: 104850128727708647}
-  - component: {fileID: 499936129}
   - component: {fileID: 499936136}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +136,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 1
 --- !u!61 &104850128727708642
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,7 +150,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05458337, y: 0.0041708946}
+  m_Offset: {x: -0.05458337, y: 0.01516068}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -162,7 +161,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3052305, y: 2.0012567}
+  m_Size: {x: 1.3052305, y: 1.9792771}
   m_EdgeRadius: 0
 --- !u!114 &104850128727708645
 MonoBehaviour:
@@ -177,6 +176,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shake: {fileID: 0}
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 512
   LandEvent:
     m_PersistentCalls:
       m_Calls:
@@ -204,9 +206,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 104850128727708646}
-  damagedTime: 0.15
-  speed: 250
-  hitBox: {fileID: 499936129}
 --- !u!50 &104850128727708647
 Rigidbody2D:
   serializedVersion: 4
@@ -228,22 +227,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &499936129
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 104850128727708646}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.039924562, y: -0.04944682}
-  m_Size: {x: 1.4011298, y: 2.1987052}
-  m_Direction: 0
 --- !u!114 &499936136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,4 +242,3 @@ MonoBehaviour:
   firePoint: {fileID: 104850128611341913}
   bulletPrefab: {fileID: 6330425752101236815, guid: 2e2a91e50991cfd48a58b7db2ae100b5,
     type: 3}
-  animator: {fileID: 104850128727708643}

@@ -11,7 +11,7 @@ public class PlayerWeapon : MonoBehaviour
    
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>(); 
     }
 
     // Fires a bullet when 'z' is pressed on the keyboard
@@ -19,11 +19,11 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (Input.GetKeyDown("z"))
         {
-            animator.SetBool("Fire", true); 
+            animator.SetBool("Fire", true); // Plays the firing animation
         }
     }
 
-    // Executes at the end of the firing animation
+    // Animation event enters at the end of the firing animation
     // Creates a bullet copy at the firing point
     public void Shoot()
     {

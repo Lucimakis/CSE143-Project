@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject playerPrefab; // The player model and all attached scripts
     private int health; // Amount of health the player has
     private int damageTaken; // Amount of damage enemies give to the player
     private float damagedTime; // Time the character flashes red on damage
     private float speed; // Speed of the character movement
-    private CapsuleCollider2D hitBox; // The player's hitbox
+    private BoxCollider2D hitBox; // The player's hitbox
     private Controller2D controller; // Controller for movement
     private Animator animator; // Player animation controller 
     private SpriteRenderer renderer; // Player model manager
@@ -25,9 +24,9 @@ public class PlayerController : MonoBehaviour
         jump = false;
         crouch = false;
         roll = false;
-        damagedTime = 0.3f;
+        damagedTime = 0.15f;
         speed = 250.0f;
-        hitBox = GetComponent<CapsuleCollider2D>();
+        hitBox = GetComponent<BoxCollider2D>();
         controller = GetComponent<Controller2D>();
         renderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -44,18 +43,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Called every frame
     void Update()
     {
         xVelocity = Input.GetAxisRaw("Horizontal") * speed; // Movement based on input side-to-side
         animator.SetFloat("Speed", Mathf.Abs(xVelocity)); // Changes the flag in the animator for speed
-        if (Input.GetKeyDown("up")) // Jumps and changes the animation 
+        if (Input.GetKeyDown("up"))
         {
-            jump = true;
-            animator.SetBool("Jump", true);
+            jump = true; // Jumping input 
+            animator.SetBool("Jump", true); // Starts the jump animation
         }
-        else if (Input.GetKeyUp("up")) // No longer jumping but does not change the animation 
+        else if (Input.GetKeyUp("up")) // Ends jumping input but not the animation
         {
-            jump = false;
+            jump = false; 
         }
         crouch = Input.GetKey("down"); // Whether or not to crouch
         animator.SetBool("Crouch", crouch); // Changes the animation to crouch
@@ -64,9 +64,14 @@ public class PlayerController : MonoBehaviour
             roll = true;
             animator.SetBool("Roll", true);
         }
+        if (Vector2.Distance(transform.position, spawn) >= 100) // If the character is too far from the start point 
+        {
+            Respawn();
+        }
     }
 
     // Plays the entire roll animation before ending
+    // Triggers on animation event finish
     void rollFinish() 
     {
         roll = false;
@@ -80,28 +85,35 @@ public class PlayerController : MonoBehaviour
     }
 
     // Moves the character based on input
+    // Called every physics frame
     void FixedUpdate()
     {
         if (!controlLoss)
         {
-            controller.Move(xVelocity * Time.deltaTime, crouch, jump, roll);
+            controller.Move(xVelocity * Time.fixedDeltaTime, crouch, jump);
+        }
+
+        Collider2D[] collisions = Physics2D.OverlapBoxAll(transform.position, hitBox.size, 0); // Gets all colliders around the character
+        foreach (Collider2D collision in collisions) { // Checks if the collider belongs to an enemy
+            if (collision.tag == "Enemy" && !roll)
+            {
+                Damage(collision);
+            }
         }
     }
 
-    // If the player collides with an enemy, damage is taken
-    void OnTriggerEnter2D(Collider2D hitObject)
+    private void Damage(Collider2D collision)
     {
-        Enemy enemy = hitObject.GetComponent<Enemy>();
-        if (enemy != null)
+        controlLoss = true;
+        health -= damageTaken;
+        if (health <= 0) // Respawn the player if died
         {
-            controlLoss = true;
-            health -= damageTaken;
-            if (health <= 0) // Respawn the player if died
-            {
-                Respawn();
-            }
+            Respawn();
+        }
+        else
+        {
             StartCoroutine(switchColor(Color.red)); // Flashes the color of the character
-            controller.bounceBack(hitObject.transform); // Bounces it backwards away from the damage source
+            controller.bounceBack(collision.transform); // Bounces character away from the damage source
         }
     }
 
@@ -117,7 +129,8 @@ public class PlayerController : MonoBehaviour
     // Creates a new game object and destroys the old object
     void Respawn()
     {
-        Instantiate(playerPrefab, spawn, Quaternion.identity);
-        Destroy(gameObject);
+        controller.stopMovement();
+        transform.position = spawn;
+        health = 100;
     } 
 }

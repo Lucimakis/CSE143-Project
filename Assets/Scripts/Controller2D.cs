@@ -5,108 +5,109 @@ using UnityEngine.Events;
 
 public class Controller2D : MonoBehaviour
 {
-    public CameraShake shake; // Camera
+    [SerializeField] private LayerMask tileLayer; // Layermask so that we only look at tiles when checking for the ground
+
     private BoxCollider2D boxCollider; // Collider for terrain
     private Rigidbody2D rb; // Physics controller to move the object
     private float jumpForce; // The jump height multiplier
     private float crouchSpeed; // Speed reduction when crouching
+    private float castError; // Leeway for the ground hitbox
     private bool facingRight; // Whether the model is facing positive x values
-    private bool grounded; // Whether the object is standing on the ground
+    public bool grounded; // Whether the object is standing on the ground
     private Vector3 zeroVelocity; 
 
-    public UnityEvent LandEvent;
+    public UnityEvent LandEvent; // Stops the jumping animation
 
     public void Awake()
     {
-        jumpForce = 125.0f;
+        jumpForce = 200.0f;
         crouchSpeed = 0.5f;
+        castError = 0.1f;
         facingRight = true;
+        grounded = true;
         zeroVelocity = Vector3.zero;
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    // Checks if the object is standing on the ground using collisions
+    // Called for every physics frame
     void FixedUpdate()
     {
-        bool fromAir = grounded;
+        checkColliders(); // Checks if the player is on the ground
+    }
+
+    // Checks if the object is standing on the ground 
+    // If the player is landing after jumping, the jumping animation is stopped
+    private void checkColliders()
+    {
+        bool prevFrameInAir = grounded; // Previous frame state
         grounded = false;
-        Collider2D[] collisions = Physics2D.OverlapBoxAll(transform.position, boxCollider.size, 0); // array of colliders at the current position and collider size
-        foreach (Collider2D collision in collisions)
+        RaycastHit2D[] collisions = Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, castError, tileLayer); // Array of collisions around the character
+        if (collisions != null && collisions.Length != 0) // If the array is not empty or null
         {
-            if (collision != boxCollider && 
-                collision != gameObject.GetComponent<CapsuleCollider2D>() && 
-                collision.GetComponent<Enemy>() == null) // Checks if the collision is not the player's own collider, hitbox, or an enemy
+            grounded = true;
+            if (prevFrameInAir) // Character is landing
             {
-                grounded = true; // Collision must be with the ground
-                if (fromAir) // The player lands on the ground
-                {
-                    LandEvent.Invoke(); // Stop jumping
-                }
+                LandEvent.Invoke();
             }
         }
     }
 
     // Moves the character
-    public void Move(float xVelocity, bool crouch, bool jump, bool roll)
+    public void Move(float xVelocity, bool crouch, bool jump)
     {
-        if (roll) 
+        if (crouch)
         {
-            Roll();
+            if (!grounded) // In the air
+            {
+                Crash(); // Land very quickly
+            }
+            else
+            {
+                xVelocity *= crouchSpeed; // Movement speed is halved
+            }   
         }
-        if (grounded) // Movement is only allowed on the ground
+        if ((xVelocity > 0 && !facingRight) || (xVelocity < 0 && facingRight)) // Going left while facing right and vice versa
         {
-            if (crouch)
-            {
-                xVelocity *= crouchSpeed;
-            }
-            Vector3 target = new Vector2(xVelocity, rb.velocity.y); // The target velocity to move towards based on input
-            rb.velocity = Vector3.SmoothDamp(rb.velocity, target, ref zeroVelocity, 0f); // Transitions the current velocity to the target smoothly
-            if ((xVelocity > 0 && !facingRight) || (xVelocity < 0 && facingRight)) // Swaps the direction the model is facing 
-            {
-                Flip();
-            }
-            if (jump)
-            {
-                Jump();
-            }
+            Flip(); // Flip the player model
         }
-        else if (crouch) // Crouching in midair slams into the ground
+        if (grounded && jump)
         {
-            Crash();
+            Jump(); 
         }
+        Vector3 target = new Vector2(xVelocity, rb.velocity.y); // The target velocity to move towards based on input.
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, target, ref zeroVelocity, 0.1f); // Transitions the current velocity to the target smoothly
     }
 
     // Character jumps
     private void Jump()
     {
         grounded = false;
-        rb.AddForce(new Vector2(0f, jumpForce));
+        rb.AddForce(new Vector2(0f, jumpForce)); // Applies force upwards to the character
     }
 
-    // Character rolls
-    private void Roll()
-    {
-        // shrink hitbox logic
-    }
-
-    // Drops the character to the ground and adds screen shake
+    // Drops the character to the ground
     private void Crash()
     {
-        rb.AddForce(new Vector2(0f, int.MinValue));
-        StartCoroutine(shake.screenShake(0.2f, 0.2f));
+        rb.AddForce(new Vector2(0f, int.MinValue)); // Applies maximum downward force 
     }
 
     // Character model flips direction
     private void Flip()
     {
         facingRight = !facingRight;
-        transform.Rotate(0f, 180f, 0f);
+        transform.Rotate(0f, 180f, 0f); // Rotates the model 180 degrees
     }
 
     // Bounces the character in the opposite direction of the damage source
     public void bounceBack(Transform damageSource)
     {
-        rb.velocity = new Vector2((transform.position.x - damageSource.position.x) * 5, rb.velocity.y);
+        rb.velocity = new Vector2((transform.position.x - damageSource.position.x) * 5, rb.velocity.y); 
     } 
+
+    // Stops the character's movement
+    public void stopMovement()
+    {
+        rb.velocity = Vector2.zero;
+    }
 }

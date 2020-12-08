@@ -9,7 +9,10 @@ public class LevelGeneration : MonoBehaviour
     // index 1 ==> LRB
     // index 2 ==> LRT
     // index 3 ==> LRBT
-    public GameObject[] rooms; 
+    public GameObject[] rooms;
+
+    public GameObject enemy;
+    public GameObject player;
 
     // Direction to move after initial room
     private int direction;
@@ -43,7 +46,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void Update()
     {
-        if (timeBetweenRoom <= 0 && stopGeneration == false)
+        if (timeBetweenRoom <= 0 && !stopGeneration)
         {
             Move();
             // Waiting before generating the next room
@@ -57,6 +60,7 @@ public class LevelGeneration : MonoBehaviour
 
     private void Move()
     {
+        Instantiate(enemy, transform.position, Quaternion.identity); // Create an enemy
         // Move right
         if (direction == 1 || direction == 2)
         {
@@ -136,7 +140,7 @@ public class LevelGeneration : MonoBehaviour
                     {
                         roomAbove.RoomDestruction();
 
-                        // Once again, ineffcient and strange weighting
+                        // Once again, inefficient and strange weighting
                         int randBottomOpening = Random.Range(1, 4);
                         if (randBottomOpening == 2)
                         {
@@ -158,6 +162,7 @@ public class LevelGeneration : MonoBehaviour
             else
             {
                 stopGeneration = true;
+                Instantiate(player, transform.position, transform.rotation);
             }
         }
     }

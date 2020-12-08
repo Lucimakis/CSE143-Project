@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 4826514938783157394}
   - component: {fileID: 3427657441350838544}
   - component: {fileID: 5827363920183304137}
-  m_Layer: 0
+  - component: {fileID: 5909847919141823644}
+  m_Layer: 10
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 5940899618857768665, guid: 313df3935fc0c8742859044a9b1b7ed8,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}
@@ -135,7 +136,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5559019996566795987}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 24273d47b7b2a7f4ba243a23289b9645, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -165,5 +166,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   death: {fileID: 6696316556642104883, guid: ac9748b5fe848694092d05256a8b1da6, type: 3}
-  damagedTime: 0.2
-  deathAnim: 1
+--- !u!114 &5909847919141823644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559019996566795987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0255767c863ad39478801fe946f94f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shake: {fileID: 0}
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  LandEvent:
+    m_PersistentCalls:
+      m_Calls: []

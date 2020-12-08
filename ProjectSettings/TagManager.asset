@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Tile
+  - Projectile
+  - Wall
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -14,8 +19,8 @@ TagManager:
   - 
   - 
   - Room
-  - 
-  - 
+  - Tile
+  - Character
   - 
   - 
   - 
@@ -46,4 +51,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1054267867
+    locked: 0
+  - name: Tiles
+    uniqueID: 85038811
     locked: 0

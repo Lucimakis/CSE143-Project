@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     private int health; // Amount of health the player has
     private int damageTaken; // Amount of damage enemies give to the player
-    private int maxDistance; // Maximum distance from start 
     private float damagedTime; // Time the character flashes red on damage
     private float invincibleStart; // Time the character is invincible upon spawn
     private float speed; // Speed of the character movement
@@ -19,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private bool jump; // Whether player is jumping
     private bool crouch; // Whether player is crouching
     private bool roll; // Whether player is rolling
-    private Vector3 spawn; // The spawn point 
     private bool controlLoss; // Amount of time the player cannot be controlled
     private bool invincible; // Player does not take damage
 
@@ -31,7 +29,6 @@ public class PlayerController : MonoBehaviour
         damagedTime = 0.15f;
         invincibleStart = 3f;
         speed = 250.0f;
-        maxDistance = 100;
         hitBox = GetComponent<BoxCollider2D>();
         controller = GetComponent<Controller2D>();
         renderer = GetComponent<SpriteRenderer>();
@@ -42,7 +39,6 @@ public class PlayerController : MonoBehaviour
     {
         health = 100;
         damageTaken = 40;
-        spawn = transform.position;
         StartCoroutine(switchColor(Color.blue, invincibleStart));
     }
 
@@ -66,10 +62,6 @@ public class PlayerController : MonoBehaviour
         {
             roll = true;
             animator.SetBool("Roll", true);
-        }
-        if (Vector2.Distance(transform.position, spawn) >= maxDistance) // If the character is too far from the start point 
-        {
-            Death();
         }
     }
 
@@ -111,7 +103,7 @@ public class PlayerController : MonoBehaviour
         {
             controlLoss = true;
             health -= damageTaken;
-            if (health <= 0) // Respawn the player if died
+            if (health <= 0) // Nenu screen if player is dead
             {
                 Death();
             }
@@ -137,6 +129,9 @@ public class PlayerController : MonoBehaviour
     // Loads death screen 
     void Death()
     {
-        SceneManager.LoadScene(2, LoadSceneMode.Additive);
+        if (!SceneManager.GetSceneByName("Death").isLoaded)
+        {
+            SceneManager.LoadScene(2, LoadSceneMode.Additive);
+        }
     } 
 }

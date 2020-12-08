@@ -10,7 +10,7 @@ public class ProgressTracker : MonoBehaviour
     {
         if (GameObject.FindWithTag("Enemy") == null)
         {
-            SceneManager.LoadScene(2, LoadSceneMode.Additive);
+            SceneManager.LoadScene(2);
             SceneManager.LoadScene(3, LoadSceneMode.Additive);
         }
     }

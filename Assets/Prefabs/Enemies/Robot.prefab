@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3427657441350838544}
   - component: {fileID: 5827363920183304137}
   - component: {fileID: 5909847919141823644}
+  - component: {fileID: -5663256106901885968}
   m_Layer: 10
   m_Name: Robot
   m_TagString: Enemy
@@ -145,6 +146,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288a3b8595859634a801cc62e882e11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3783769093146495619, guid: cbd8ae081bc18d84eb296bb9fe831558,
+          type: 3}
+        m_MethodName: checkProgress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   death: {fileID: 6696316556642104883, guid: ac9748b5fe848694092d05256a8b1da6, type: 3}
 --- !u!114 &5909847919141823644
 MonoBehaviour:
@@ -165,3 +181,22 @@ MonoBehaviour:
   LandEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &-5663256106901885968
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559019996566795987}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81cea268393e9db49bd5ae53757ac7de, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

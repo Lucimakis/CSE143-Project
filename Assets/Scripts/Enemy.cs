@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
+    public UnityEvent deathEvent; // Check for remaining enemies on death
     public GameObject death; // Enemy death object
     private float speed; // Speed the enemies move at
     private Controller2D controller; // Movement controller
@@ -12,6 +14,7 @@ public class Enemy : MonoBehaviour
     private int health; // Amount of health points
     private float damagedTime; // The time the enemy shows damage for
     private float deathAnim; // Length of time the body stays on the screen
+    private int damageAmount; // Amount of damage done
 
     void Awake()
     {
@@ -19,6 +22,7 @@ public class Enemy : MonoBehaviour
         damagedTime = 0.2f;
         deathAnim = 1.0f;
         speed = 100f;
+        damageAmount = 40;
     }
 
     void Start()
@@ -30,7 +34,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Destroys redundant enemies
-    // Only one enemy per room
+    // Enemies attack each other
     void Update()
     {
         Collider2D[] collisions = Physics2D.OverlapBoxAll(transform.position, hitbox.size, 0);
@@ -38,7 +42,7 @@ public class Enemy : MonoBehaviour
         {
             if (collision != hitbox && collision.tag == "Enemy") // Collision should not be their own hitbox
             {
-                Destroy(gameObject);
+                Damage(damageAmount);
             } 
         }
     }
@@ -60,6 +64,7 @@ public class Enemy : MonoBehaviour
     // Destroys the object and shows the body
     void Die()
     {
+        deathEvent.Invoke();
         Destroy(gameObject);
         GameObject body = Instantiate(death, transform.position, transform.rotation) as GameObject;
         Destroy(body, deathAnim);

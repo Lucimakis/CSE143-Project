@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     private int health; // Amount of health the player has
     private int damageTaken; // Amount of damage enemies give to the player
+    private int maxDistance; // Maximum distance from start 
     private float damagedTime; // Time the character flashes red on damage
+    private float invincibleStart; // Time the character is invincible upon spawn
     private float speed; // Speed of the character movement
     private BoxCollider2D hitBox; // The player's hitbox
     private Controller2D controller; // Controller for movement
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool roll; // Whether player is rolling
     private Vector3 spawn; // The spawn point 
     private bool controlLoss; // Amount of time the player cannot be controlled
+    private bool invincible; // Player does not take damage
 
     void Awake()
     {
@@ -25,7 +29,9 @@ public class PlayerController : MonoBehaviour
         crouch = false;
         roll = false;
         damagedTime = 0.15f;
+        invincibleStart = 3f;
         speed = 250.0f;
+        maxDistance = 100;
         hitBox = GetComponent<BoxCollider2D>();
         controller = GetComponent<Controller2D>();
         renderer = GetComponent<SpriteRenderer>();
@@ -36,11 +42,8 @@ public class PlayerController : MonoBehaviour
     {
         health = 100;
         damageTaken = 40;
-        spawn = new Vector2(0f, 5f);
-        if (gameObject == null)
-        {
-            Instantiate(gameObject, spawn, transform.rotation);
-        }
+        spawn = transform.position;
+        StartCoroutine(switchColor(Color.blue, invincibleStart));
     }
 
     // Called every frame
@@ -64,9 +67,9 @@ public class PlayerController : MonoBehaviour
             roll = true;
             animator.SetBool("Roll", true);
         }
-        if (Vector2.Distance(transform.position, spawn) >= 100) // If the character is too far from the start point 
+        if (Vector2.Distance(transform.position, spawn) >= maxDistance) // If the character is too far from the start point 
         {
-            Respawn();
+            Death();
         }
     }
 
@@ -104,33 +107,36 @@ public class PlayerController : MonoBehaviour
 
     private void Damage(Collider2D collision)
     {
-        controlLoss = true;
-        health -= damageTaken;
-        if (health <= 0) // Respawn the player if died
+        if (!invincible)
         {
-            Respawn();
-        }
-        else
-        {
-            StartCoroutine(switchColor(Color.red)); // Flashes the color of the character
-            controller.bounceBack(collision.transform); // Bounces character away from the damage source
+            controlLoss = true;
+            health -= damageTaken;
+            if (health <= 0) // Respawn the player if died
+            {
+                Death();
+            }
+            else
+            {
+                StartCoroutine(switchColor(Color.red, damagedTime)); // Flashes the color of the character
+                controller.bounceBack(collision.transform); // Bounces character away from the damage source
+            }
         }
     }
 
     // Changes the color when damaged 
-    IEnumerator switchColor(Color color)
+    IEnumerator switchColor(Color color, float time)
     {
         renderer.color = color;
-        yield return new WaitForSeconds(damagedTime);
+        invincible = true;
+        yield return new WaitForSeconds(time);
         renderer.color = Color.white;
+        invincible = false;
         controlLoss = false;
     }
 
-    // Creates a new game object and destroys the old object
-    void Respawn()
+    // Loads death screen 
+    void Death()
     {
-        controller.stopMovement();
-        transform.position = spawn;
-        health = 100;
+        SceneManager.LoadScene(2, LoadSceneMode.Additive);
     } 
 }

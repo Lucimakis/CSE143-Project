@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 104850128727708644}
   - component: {fileID: 104850128727708647}
   - component: {fileID: 499936136}
+  - component: {fileID: -3783769093146495619}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -175,10 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0255767c863ad39478801fe946f94f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shake: {fileID: 0}
   tileLayer:
     serializedVersion: 2
     m_Bits: 512
+  grounded: 0
   LandEvent:
     m_PersistentCalls:
       m_Calls:
@@ -205,7 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97a7b0488d1e174399497efac1f97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 104850128727708646}
 --- !u!50 &104850128727708647
 Rigidbody2D:
   serializedVersion: 4
@@ -242,3 +242,15 @@ MonoBehaviour:
   firePoint: {fileID: 104850128611341913}
   bulletPrefab: {fileID: 6330425752101236815, guid: 2e2a91e50991cfd48a58b7db2ae100b5,
     type: 3}
+--- !u!114 &-3783769093146495619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104850128727708646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1996ba1ec08093a4bb9f4f632deef251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

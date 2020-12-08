@@ -139,6 +139,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288a3b8595859634a801cc62e882e11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3783769093146495619, guid: cbd8ae081bc18d84eb296bb9fe831558,
+          type: 3}
+        m_MethodName: checkProgress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   death: {fileID: 852334458893065792, guid: 9af89a5fc399b474eae8833e2aca1269, type: 3}
 --- !u!114 &7082301293423020539
 MonoBehaviour:

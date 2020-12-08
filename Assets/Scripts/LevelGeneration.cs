@@ -7,6 +7,7 @@ public class LevelGeneration : MonoBehaviour
     public Transform[] startingPositions;
 
     public GameObject[] enemies;
+    public GameObject tracker;
     public GameObject player;
 
     // index 0 ==> LR
@@ -177,7 +178,9 @@ public class LevelGeneration : MonoBehaviour
             else
             {
                 stopGeneration = true;
-                Instantiate(player, transform.position, transform.rotation);
+                // Spawn in the top right corner 
+                Instantiate(player, new Vector2(15, 5), transform.rotation);
+                Instantiate(tracker, transform.position, Quaternion.identity);
             }
         }
     }

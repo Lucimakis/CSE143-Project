@@ -640,6 +640,7 @@ MonoBehaviour:
   - {fileID: 6709210011915089395, guid: d302ea407bd6f234894ea11a71344010, type: 3}
   - {fileID: 1118281867312624105, guid: a6d16aeb3d9897e4fb6c7de3f8543490, type: 3}
   - {fileID: 1028627631250672771, guid: eccd5cb3c2375464bb07012ac7800c0f, type: 3}
+  tracker: {fileID: 3436492144578697283, guid: 4f4bfb0c790d7c94d81f8893faa97486, type: 3}
   player: {fileID: 104850128727708646, guid: cbd8ae081bc18d84eb296bb9fe831558, type: 3}
   rooms:
   - {fileID: 0}
@@ -1636,7 +1637,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

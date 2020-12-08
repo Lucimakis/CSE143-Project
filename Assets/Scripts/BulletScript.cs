@@ -25,11 +25,14 @@ public class BulletScript : MonoBehaviour
     // Damages the collision if it is an enemy and deletes the bullet.
     void OnTriggerEnter2D(Collider2D hitObject)
     {
-        Enemy enemy = hitObject.GetComponent<Enemy>(); // Gets the enemy script
-        if (enemy != null)
+        if (hitObject.gameObject.tag != "ProjectileIgnore")
         {
-            enemy.Damage(damage);
+            Enemy enemy = hitObject.GetComponent<Enemy>(); // Gets the enemy script
+            if (enemy != null)
+            {
+                enemy.Damage(damage);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

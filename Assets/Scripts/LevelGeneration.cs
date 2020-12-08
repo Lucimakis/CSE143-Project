@@ -9,10 +9,20 @@ public class LevelGeneration : MonoBehaviour
     // index 1 ==> LRB
     // index 2 ==> LRT
     // index 3 ==> LRBT
+<<<<<<< HEAD
     public GameObject[] rooms;
 
     public GameObject enemy;
     public GameObject player;
+=======
+    // This array will be overriden in Start()
+    public GameObject[] rooms;
+
+    public GameObject LeftRightRoom;
+    public GameObject LeftRightBottomRoom;
+    public GameObject LeftRightTopRoom;
+    public GameObject LeftRightBottomTopRoom;
+>>>>>>> 3fdc62d9b5d96de1afc0391b7d4e577435fe4820
 
     // Direction to move after initial room
     private int direction;
@@ -34,10 +44,12 @@ public class LevelGeneration : MonoBehaviour
     
     private void Start()
     {
+        rooms = new GameObject[] { LeftRightRoom, LeftRightBottomRoom, LeftRightTopRoom, LeftRightBottomTopRoom };
+
         // Pick & instantiate a random room
         int randStartingPos = Random.Range(0, startingPositions.Length);
         transform.position = startingPositions[randStartingPos].position;
-        Instantiate(rooms[0], transform.position, Quaternion.identity);
+        Instantiate(LeftRightRoom, transform.position, Quaternion.identity);
 
         // Pick a random direction out of 4: up, down, left, right.
         // 40% right, 40% left, 20% down
@@ -129,18 +141,27 @@ public class LevelGeneration : MonoBehaviour
             {
                 Collider2D roomDetection = Physics2D.OverlapCircle(transform.position, 1, room);
                 RoomType roomAbove = roomDetection.GetComponent<RoomType>();
-                if(roomAbove.type != 1 || roomAbove.type != 3)
+
+                // Check if the room above doesn't have a bottom opening
+                if(roomAbove.rType != RoomTypes.LeftRightBottom || roomAbove.rType != RoomTypes.LeftRightTopBottom)
                 {
+                    // If we go down two rooms consecutively, we need to make sure we leave an opening above.
                     if (downCounter >= 2)
                     {
                         roomAbove.RoomDestruction();
-                        Instantiate(rooms[3], transform.position, Quaternion.identity);
+                        Instantiate(LeftRightBottomTopRoom, transform.position, Quaternion.identity);
                     }
                     else
                     {
                         roomAbove.RoomDestruction();
 
+<<<<<<< HEAD
                         // Once again, inefficient and strange weighting
+=======
+                        // Once again, ineffcient and strange weighting
+                        // Rooms at indexes 1 & 3 have bottom openings.
+                        // LeftRightBottom & LeftRightTopBottom
+>>>>>>> 3fdc62d9b5d96de1afc0391b7d4e577435fe4820
                         int randBottomOpening = Random.Range(1, 4);
                         if (randBottomOpening == 2)
                         {

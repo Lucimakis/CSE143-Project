@@ -1,6 +1,7 @@
-Design Implementation: 
+# Design Implementation: 
 
-Player: 
+## Player: 
+-------------------------------------------------------------------------------------
 We wanted a character for a sci-fi themed platformer and animations for various actions. We made a custom character controller with a move function that would take in input for movement in the x axis as well as if the player should jump or crouch. Unity’s Rigidbody2D component let us control the physics of our object and apply forces for movement or jumping. The player can take three hits before he dies, similar to games like Zelda with the three heart system.
     
     Checking for ground: One of the most difficult parts of making the controller was in figuring out how to check for the ground and differentiating between walls and floor. We tagged the tiles we would use as tiles and used rays shooting straight downwards from the player model to check if the player was on the ground. The rays must be shot in a box or circle in case the player is on a ledge, where a part of the player is still on the ledge but is no longer counted as standing on the ground. Originally, the player was not able to move while in the air, but the top to bottom structure of the levels made it difficult to drop down a level. 
@@ -17,7 +18,9 @@ We wanted a character for a sci-fi themed platformer and animations for various 
     
     Events: The player must know when to stop the jump animation so we made an event that would call a method to stop the jumping animation when the player is landing.
 
-Enemies: The enemies use the same controller as the player but do not rely on player input to move. Instead, they use random numbers to choose how they will move in a patrol pattern in the area where they spawned. 
+## Enemies: 
+-------------------------------------------------------------------------------------
+The enemies use the same controller as the player but do not rely on player input to move. Instead, they use random numbers to choose how they will move in a patrol pattern in the area where they spawned. 
     
     Patrol: Enemies will choose a direction to move in as well as a time duration in which to move in that direction. Then, they will pause before deciding again. We used an infinite loop to accomplish this, which exits when the enemy dies and the object is destroyed.
 
@@ -29,4 +32,5 @@ Enemies: The enemies use the same controller as the player but do not rely on pl
     
     Menus: The menus should provide buttons to start the game (play), options to change settings such as volume, credits for game art and sounds, and an exit button. We connected events to change the scene, such as when the play button is pressed, the scene is changed to the game scene. When the player dies, a scene is added that allows the character to retry or to return to the main menu. A victory screen occurs when all enemies are killed.
 
-Levels:
+## Levels:
+-------------------------------------------------------------------------------------

@@ -12,12 +12,12 @@ public class MenuScript : MonoBehaviour
 
     public void Options()
     {
-
+        // Allow for volume changing and other settings (keybindings?)
     }
 
     public void Credits()
     {
-
+        // Show credits
     }
 
     public void mainMenu()
@@ -27,6 +27,6 @@ public class MenuScript : MonoBehaviour
 
     public void Quit()
     {
-
+        // Close game
     }
 }

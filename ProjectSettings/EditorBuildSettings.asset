@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: b8b5b9bfd5527ed4f805b4f6bd717018
   - enabled: 1
-    path: Assets/Scenes/MapGenAndPlayer.unity
-    guid: 31e1a6a16f0ff844cb1ad8e0ee9d8ce0
+    path: Assets/Scenes/NewMapGen.unity
+    guid: 892593f26747aea4f9414b8f0f443c0c
   - enabled: 1
     path: Assets/Scenes/Death.unity
     guid: 065551eca7df5b24dbae49f240bbe84b

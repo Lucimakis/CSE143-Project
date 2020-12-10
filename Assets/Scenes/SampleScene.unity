@@ -239,7 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97a7b0488d1e174399497efac1f97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
 --- !u!95 &579030122
 Animator:
   serializedVersion: 3
@@ -341,7 +340,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -383,6 +382,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0255767c863ad39478801fe946f94f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  grounded: 0
+  LandEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1092441815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,7 +1040,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.0625, y: 0.0625, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0

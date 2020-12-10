@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool roll; // Whether player is rolling
     private bool controlLoss; // Amount of time the player cannot be controlled
     private bool invincible; // Player does not take damage
+    private int maxDistance; // The maximum distance before the player is respawned
+    private Vector2 spawn; // Where the player is spawned
 
     void Awake()
     {
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour
         damagedTime = 0.15f;
         invincibleStart = 3f;
         speed = 250.0f;
+        maxDistance = 100;
+        spawn = transform.position;
         hitBox = GetComponent<BoxCollider2D>();
         controller = GetComponent<Controller2D>();
         renderer = GetComponent<SpriteRenderer>();
@@ -45,6 +49,10 @@ public class PlayerController : MonoBehaviour
     // Called every frame
     void Update()
     {
+        if (Vector2.Distance(transform.position, spawn) >= maxDistance)
+        {
+            transform.position = spawn;
+        }
         xVelocity = Input.GetAxisRaw("Horizontal") * speed; // Movement based on input side-to-side
         animator.SetFloat("Speed", Mathf.Abs(xVelocity)); // Changes the flag in the animator for speed
         if (Input.GetKeyDown("up"))

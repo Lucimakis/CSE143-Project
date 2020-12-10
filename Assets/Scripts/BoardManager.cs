@@ -11,6 +11,10 @@ public class BoardManager : MonoBehaviour
     public GameObject[] Rooms;
     public GameObject[] endRooms;
 
+    public GameObject[] enemies;
+    public GameObject player;
+    
+
 
     private Transform outer;
     private Vector3 lastNormalRoom;
@@ -29,6 +33,7 @@ public class BoardManager : MonoBehaviour
     {
         GameObject toInstantiate = startRooms[Random.Range(0, startRooms.Length)];
         GameObject instance = Instantiate(toInstantiate, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        Instantiate(player, new Vector2(0, 0), Quaternion.identity);
         return instance.tag;
     }
 
@@ -39,6 +44,7 @@ public class BoardManager : MonoBehaviour
     // it will return the tag of last room.
     private string setupRoom(string lastTag, int times, float x, float y)
     {
+
         if(times > 0)
         {
             string enter = lastTag.Substring(lastTag.Length - 1);
@@ -54,6 +60,7 @@ public class BoardManager : MonoBehaviour
             }
             Vector3 pos = getPos(enter, x, y);
             GameObject instance = Instantiate(toInstantiate, pos, Quaternion.identity) as GameObject;
+            Instantiate(enemies[Random.Range(0, enemies.Length)], pos, Quaternion.identity);
             return setupRoom(instance.tag, times - 1, pos.x, pos.y);
         }
         else
@@ -78,6 +85,7 @@ public class BoardManager : MonoBehaviour
         }
         
         GameObject instance = Instantiate(toInstantiate, getPos(enter, position.x, position.y), Quaternion.identity) as GameObject;
+        Instantiate(enemies[Random.Range(0, enemies.Length)], getPos(enter, position.x, position.y), Quaternion.identity);
     }
 
     // Used to get the room position

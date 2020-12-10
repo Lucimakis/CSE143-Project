@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 104850128727708644}
   - component: {fileID: 104850128727708647}
   - component: {fileID: 499936136}
-  - component: {fileID: -3783769093146495619}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -105,8 +104,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1054267867
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 390d0b1e3931ebc42a98705c035e49eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -206,6 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97a7b0488d1e174399497efac1f97c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackPos: {fileID: 2923271719225729938, guid: ce209732690cfd248939e54c1e0758a4,
+    type: 3}
 --- !u!50 &104850128727708647
 Rigidbody2D:
   serializedVersion: 4
@@ -242,15 +243,3 @@ MonoBehaviour:
   firePoint: {fileID: 104850128611341913}
   bulletPrefab: {fileID: 6330425752101236815, guid: 2e2a91e50991cfd48a58b7db2ae100b5,
     type: 3}
---- !u!114 &-3783769093146495619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 104850128727708646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1996ba1ec08093a4bb9f4f632deef251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

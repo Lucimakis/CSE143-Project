@@ -10,6 +10,19 @@ TagManager:
   - Wall
   - Ground
   - ProjectileIgnore
+  - NS
+  - SW
+  - SE
+  - EW
+  - W
+  - WE
+  - E
+  - WW
+  - EE
+  - S
+  - WS
+  - ES
+  - Room
   layers:
   - Default
   - TransparentFX

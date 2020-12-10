@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    public UnityEvent deathEvent; // Check for remaining enemies on death
     public GameObject death; // Enemy death object
     private float speed; // Speed the enemies move at
     private Controller2D controller; // Movement controller
@@ -64,7 +63,6 @@ public class Enemy : MonoBehaviour
     // Destroys the object and shows the body
     void Die()
     {
-        deathEvent.Invoke();
         Destroy(gameObject);
         GameObject body = Instantiate(death, transform.position, transform.rotation) as GameObject;
         Destroy(body, deathAnim);
@@ -92,7 +90,7 @@ public class Enemy : MonoBehaviour
             {
                 xVelocity = -speed;
             }
-            controller.Move(xVelocity * 2f, false, false);
+            controller.Move(xVelocity, false, false);
             yield return new WaitForSeconds(Random.Range(0f, 2f)); // Random.Range is inclusive for both numbers when using floats
         }
     }

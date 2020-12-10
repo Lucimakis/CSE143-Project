@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5669807047681780793}
   - component: {fileID: 3610655282726494770}
   - component: {fileID: 2165286668130230970}
-  - component: {fileID: 1730097754725229211}
-  m_Layer: 0
+  - component: {fileID: 311085666421570074}
+  m_Layer: 9
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,8 +765,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1695580139
-  m_SortingLayer: 3
+  m_SortingLayerID: 1054267867
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -776,8 +776,8 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!61 &1730097754725229211
-BoxCollider2D:
+--- !u!19719996 &311085666421570074
+TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -789,19 +789,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1, y: -2}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 40, y: 20}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1 &6018977984995839191
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8564998988427738130}
   - component: {fileID: 7232251630782125764}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: End3
   m_TagString: S
   m_Icon: {fileID: 0}
@@ -858,7 +848,7 @@ GameObject:
   - component: {fileID: 209327376426786168}
   - component: {fileID: 4215890186928898202}
   - component: {fileID: 2349040217450594225}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Prop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3074,8 +3064,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1378090255
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

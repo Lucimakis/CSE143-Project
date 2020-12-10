@@ -14,11 +14,12 @@ Try to reach the end of the level marked by the silver door.
 
 # Controls: 
 -------------------------------------------------------------------------------------
-Left and right arrows to move, up arrow to jump, down arrow to crouch
-Shift to roll (enemies cannot hit you during a roll)
-Z to shoot your gun
+1. Left and right arrows to move, up arrow to jump, down arrow to crouch
+2. Shift to roll (enemies cannot hit you during a roll)
+3. Z to shoot your gun
 
 Enemies will damage you if you collide with them. 
+
 Try to reach the end door to escape!
 
 # Credits:

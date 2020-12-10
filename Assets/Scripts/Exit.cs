@@ -7,7 +7,7 @@ public class Exit : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player") // Object that triggers is the player
         {
             SceneManager.LoadScene(3); // Adds victory screens and buttons
             SceneManager.LoadScene(2, LoadSceneMode.Additive);

@@ -42,8 +42,7 @@ Rooms are generated randomly every time the games run. We chose to go with an ap
 
  - **Extra Room Generation (1)**: On all of our rooms, the `SpawnObject.cs` script on all gameobjects check on all `Update()` calls whether or not map generation has ended and if the tile its on has a room. If it didn't (and map generaiton ended), it would instantiate a random room at that location and would then destroy the object containing the `SpawnObject.s` script. This would happen in all remaining rooms and since all rooms had left and right openings, all rooms are accessible in some way.
 
-[TODO]
+ - **Map Path Generation (2)**: Since we are going to make a rogue-like game, we need to make sure that every time the player starts the game, the level will be different, which means that we need to generate the level randomly. Our method is to combine the handmade rooms and randomness.  After that, we wrote a recursive method to connect rooms. We select rooms randomly. If the selected room can be connected, we will connect the room with the existing room. Otherwise we will reselect rooms until we find a proper room to connect.
 
- - **Map Path Generation (2)**:
  
- - **Extra Room Generation (2)**:
+ - **Extra Room Generation (2)**: Firstly, we design different rooms manually. Each room has a different layout and we wrote scripts to randomly generate enemies in rooms. Then we tagged each room with proper labels, such as `“WW”,”WE”` and so on. The first letter represents the location that the room should be placed compared with the connected room. The second letter represents where the player can exit the current room. For example, `“WW”` means that this room can be placed west of the existing room and the player can and only can go out of  the room from west. Each room has only one entry and one exit.

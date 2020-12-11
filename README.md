@@ -2,6 +2,8 @@
 -------------------------------------------------------------------------------------
 Final project for CSE 143 -- 2D Platformer using the Unity Engine
 
+[Click here for video](https://youtu.be/MpWknJS3cS8)
+
 ## Instructions:
 -------------------------------------------------------------------------------------
 1. Download the project and import into the Unity Engine (File -> Open Project -> Select downloaded project)
